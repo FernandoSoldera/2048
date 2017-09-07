@@ -9,15 +9,6 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     private GridView gridView;
 
-    static final String[] numbers = new String[] {
-            "A", "B", "C", "D", "E",
-            "F", "G", "H", "I", "J",
-            "K", "L", "M", "N", "O",
-            "P", "Q", "R", "S", "T",
-            "U", "V", "W", "X", "Y", "Z"};
-
-    private TextView[] tabuleiro;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,16 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
         gridView = (GridView) findViewById(R.id.gridView);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, numbers);
-
-        TextView textView = new TextView(this);
-        textView.setText("ANA");
-        tabuleiro = new TextView[]{
-                textView
-        };
-
-        ArrayAdapter<TextView> adapter1 = new ArrayAdapter<TextView>(this, android.R.layout.simple_list_item_1, tabuleiro);
-
-        gridView.setAdapter(adapter1);
+        gridView.setAdapter(new TextViewAdapter(this, new String[1], gridView));
     }
 }
