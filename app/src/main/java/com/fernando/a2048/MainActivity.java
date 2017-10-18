@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
         gridView = (GridView) findViewById(R.id.gridView);
 
-        gridView.setAdapter(new TextViewAdapter(this, new String[1], gridView));
+        int[] valores = {2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0};
+
+        gridView.setAdapter(new TextViewAdapter(this, new String[16], gridView, valores));
     }
 }

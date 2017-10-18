@@ -70,9 +70,15 @@
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView5" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView5"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="false"
+        android:layout_margin="50px"
+        android:background="@android:color/darker_gray"
+        android:horizontalSpacing="30px"
+        android:numColumns="4"
+        android:padding="30px"
+        android:verticalSpacing="30px" />
 
 </RelativeLayout>
