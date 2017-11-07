@@ -4,14 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +25,7 @@ import android.widget.Toast;
 public class TextViewAdapter extends BaseAdapter {
     private Context context;
     private final String[] textViewValues;
-    private int[] valores;
+    private int[] valors;
     private View gridView;
     TextView textView;
 
@@ -30,7 +33,7 @@ public class TextViewAdapter extends BaseAdapter {
         this.context = context;
         this.textViewValues = textViewValues;
         this.gridView = gridView;
-        this.valores= valores;
+        this.valors= valores;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -40,17 +43,21 @@ public class TextViewAdapter extends BaseAdapter {
 
         if (convertView == null) {
 
-            // get layout from mobile.xml
             gridView = inflater.inflate(R.layout.activity_main, null);
 
-            // set value into textview
             textView = new TextView(context);
-            textView.setBackgroundColor(Color.WHITE);
-            if(valores[position] > 0)
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setColor(Color.LTGRAY);
+
+            if(valors[position] > 0)
             {
-                textView.setText(String.valueOf(valores[position]));
-                choseColor(valores[position]);
+                textView.setText(String.valueOf(valors[position]));
+                gd.setColor(Color.parseColor(choseColor(valors[position])));
             }
+
+            textView.setBackground(gd);
+
             textView.setGravity(Gravity.CENTER);
             textView.setTextSize(25);
             textView.setHeight((Resources.getSystem().getDisplayMetrics().widthPixels-250)/4);
@@ -61,43 +68,38 @@ public class TextViewAdapter extends BaseAdapter {
         return textView;
     }
 
-    private void choseColor(int number)
+    /**
+     * Method to chooses the color according to the number
+     * @param number block valor
+     * @return color
+     */
+    private String choseColor(int number)
     {
         switch (number){
             case 2:
-                textView.setBackgroundResource(R.color.colorBlock2);
-                break;
+                return "#eee4da";
             case 4:
-                textView.setBackgroundResource(R.color.colorBlock4);
-                break;
+                return "#ede0c8";
             case 8:
-                textView.setBackgroundResource(R.color.colorBlock8);
-                break;
+                return "#f2b179";
             case 16:
-                textView.setBackgroundResource(R.color.colorBlock16);
-                break;
+                return "#f59563";
             case 32:
-                textView.setBackgroundResource(R.color.colorBlock32);
-                break;
+                return "#f67c5f";
             case 64:
-                textView.setBackgroundResource(R.color.colorBlock64);
-                break;
+                return "#f65e3b";
             case 128:
-                textView.setBackgroundResource(R.color.colorBlock128);
-                break;
+                return "#edcf72";
             case 256:
-                textView.setBackgroundResource(R.color.colorBlock256);
-                break;
+                return "#edcc61";
             case 512:
-                textView.setBackgroundResource(R.color.colorBlock512);
-                break;
+                return "#edc850";
             case 1024:
-                textView.setBackgroundResource(R.color.colorBlock1024);
-                break;
+                return "#edc53f";
             case 2048:
-                textView.setBackgroundResource(R.color.colorBlock2048);
-                break;
+                return "#FFEDC22E";
         }
+        return null;
     }
 
     @Override
