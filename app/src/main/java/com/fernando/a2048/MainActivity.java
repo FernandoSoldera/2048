@@ -2,18 +2,16 @@ package com.fernando.a2048;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.GestureDetector;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private GridView gridView;
     float initialX=0, initialY=0;
-    private int[] valors = {2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0}; //FIELD
+    private int[] valors = {16, 0, 16, 16, 32, 0, 0, 256, 512, 0, 512, 0, 0, 2, 0, 2}; //FIELD
+    int[] newValors = {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,21 +50,29 @@ public class MainActivity extends AppCompatActivity {
             if(Math.pow(initialX - finalX, 2) > Math.pow(initialY - finalY, 2))
             {
                 if (initialX < finalX) {
-                    fieldMoviment.moveLeftToRight(valors);
+                    newValors = fieldMovement.moveLeftToRight(valors);
+                    Log.e("error", newValors[0] + "" + newValors[1] + "" + newValors[2] + "" + newValors[3]);
+                    gridView.setAdapter(new TextViewAdapter(this, new String[16], gridView, newValors));
                 }
 
                 if (initialX > finalX) {
-                    fieldMoviment.moveRightToLeft(valors);
+                    newValors = fieldMovement.moveRightToLeft(valors);
+                    Log.e("error", newValors[0] + "" + newValors[1] + "" + newValors[2] + "" + newValors[3]);
+                    gridView.setAdapter(new TextViewAdapter(this, new String[16], gridView, newValors));
                 }
             }
             else
             {
                 if (initialY < finalY) {
-                    fieldMoviment.moveUpToDown(valors);
+                    newValors = fieldMovement.moveUpToDown(valors);
+                    Log.e("error", newValors[0] + "" + newValors[1] + "" + newValors[2] + "" + newValors[3]);
+                    gridView.setAdapter(new TextViewAdapter(this, new String[16], gridView, newValors));
                 }
 
                 if (initialY > finalY) {
-                    fieldMoviment.moveDownToUp(valors);
+                    newValors = fieldMovement.moveDownToUp(valors);
+                    Log.e("error", newValors[0] + "" + newValors[1] + "" + newValors[2] + "" + newValors[3]);
+                    gridView.setAdapter(new TextViewAdapter(this, new String[16], gridView, newValors));
                 }
             }
 
