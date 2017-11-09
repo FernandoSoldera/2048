@@ -2,6 +2,10 @@ package com.fernando.a2048;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 /**
  * Created by fernando on 19/10/17.
  */
@@ -37,7 +41,7 @@ public class fieldMovement {
                 chagePosition = -1;
             }
         }
-        return valors;
+        return chooseLocationNewSquare(valors);
     }
 
     public static int[] moveLeftToRight(int[] valors)
@@ -66,7 +70,7 @@ public class fieldMovement {
                 chagePosition = -1;
             }
         }
-        return valors;
+        return chooseLocationNewSquare(valors);
     }
 
     public static int[] moveUpToDown(int[] valors)
@@ -96,7 +100,7 @@ public class fieldMovement {
             }
         }
 
-        return valors;
+        return chooseLocationNewSquare(valors);
     }
 
     public static int[] moveDownToUp(int[] valors)
@@ -125,6 +129,22 @@ public class fieldMovement {
                 chagePosition = -1;
             }
         }
+
+        return chooseLocationNewSquare(valors);
+    }
+
+    public static int[] chooseLocationNewSquare(int[] valors){
+
+        List<Integer> possibleLocations = new ArrayList<Integer>();
+
+        for(int i=0; i<16; i++){
+            if(valors[i] == 0){
+                possibleLocations.add(i);
+            }
+        }
+        Log.e("possible", String.valueOf(possibleLocations));
+        valors[possibleLocations.get(new Random().nextInt(possibleLocations.size()))] = 2;
+
 
         return valors;
     }
