@@ -51,13 +51,11 @@ public class MainActivity extends AppCompatActivity {
             {
                 if (initialX < finalX) {
                     newValors = fieldMovement.moveLeftToRight(valors);
-                    Log.e("error", newValors[0] + "" + newValors[1] + "" + newValors[2] + "" + newValors[3]);
                     gridView.setAdapter(new TextViewAdapter(this, new String[16], gridView, newValors));
                 }
 
                 if (initialX > finalX) {
                     newValors = fieldMovement.moveRightToLeft(valors);
-                    Log.e("error", newValors[0] + "" + newValors[1] + "" + newValors[2] + "" + newValors[3]);
                     gridView.setAdapter(new TextViewAdapter(this, new String[16], gridView, newValors));
                 }
             }
@@ -65,13 +63,11 @@ public class MainActivity extends AppCompatActivity {
             {
                 if (initialY < finalY) {
                     newValors = fieldMovement.moveUpToDown(valors);
-                    Log.e("error", newValors[0] + "" + newValors[1] + "" + newValors[2] + "" + newValors[3]);
                     gridView.setAdapter(new TextViewAdapter(this, new String[16], gridView, newValors));
                 }
 
                 if (initialY > finalY) {
                     newValors = fieldMovement.moveDownToUp(valors);
-                    Log.e("error", newValors[0] + "" + newValors[1] + "" + newValors[2] + "" + newValors[3]);
                     gridView.setAdapter(new TextViewAdapter(this, new String[16], gridView, newValors));
                 }
             }

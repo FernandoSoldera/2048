@@ -16,16 +16,16 @@ public class fieldMovement {
     {
         int chagePosition = -1;
         for(int linePosition=0; linePosition<15; linePosition+=4){
-            Log.e("Line:", String.valueOf(linePosition) );
             for(int i=linePosition+1; i<(linePosition+4); i++){
-                Log.e("i:", String.valueOf(i) );
                 if(valors[i] > 0){
                     for(int j=i-1; j>=linePosition; j--){
-                        Log.e("j:", String.valueOf(j) );
                         if(valors[j] > 0){
                             if(valors[i] == valors[j]){
                                 valors[j] += valors[i];
                                 valors[i] = 0;
+                                Points points = Points.getInstance();
+                                points.setTotalPoints(points.getTotalPoints() + valors[j]);
+                                Log.e("points", String.valueOf(points.getTotalPoints()));
                             }
                             break;
                         }
@@ -55,6 +55,9 @@ public class fieldMovement {
                             if(valors[i] == valors[j]){
                                 valors[j] += valors[i];
                                 valors[i] = 0;
+                                Points points = Points.getInstance();
+                                points.setTotalPoints(points.getTotalPoints() + valors[j]);
+                                Log.e("points", String.valueOf(points.getTotalPoints()));
                             }
                             break;
                         }
@@ -84,6 +87,9 @@ public class fieldMovement {
                             if(valors[i] == valors[j]){
                                 valors[j] += valors[i];
                                 valors[i] = 0;
+                                Points points = Points.getInstance();
+                                points.setTotalPoints(points.getTotalPoints() + valors[j]);
+                                Log.e("points", String.valueOf(points.getTotalPoints()));
                             }
                             break;
                         }
@@ -114,6 +120,9 @@ public class fieldMovement {
                             if(valors[i] == valors[j]){
                                 valors[j] += valors[i];
                                 valors[i] = 0;
+                                Points points = Points.getInstance();
+                                points.setTotalPoints(points.getTotalPoints() + valors[j]);
+                                Log.e("points", String.valueOf(points.getTotalPoints()));
                             }
                             break;
                         }
@@ -142,10 +151,8 @@ public class fieldMovement {
                 possibleLocations.add(i);
             }
         }
-        Log.e("possible", String.valueOf(possibleLocations));
+
         valors[possibleLocations.get(new Random().nextInt(possibleLocations.size()))] = 2;
-
-
         return valors;
     }
 }
