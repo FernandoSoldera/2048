@@ -6,12 +6,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private GridView gridView;
     float initialX=0, initialY=0;
     private int[] valors = {16, 0, 16, 16, 32, 0, 0, 256, 512, 0, 512, 0, 0, 2, 0, 2}; //FIELD
     int[] newValors = {};
+    private TextView score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         gridView = (GridView) findViewById(R.id.gridView);
+        score = (TextView) findViewById(R.id.tvScore);
 
         gridView.setAdapter(new TextViewAdapter(this, new String[16], gridView, valors));
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        calculatePoints();
     }
 
     /**
@@ -85,5 +89,29 @@ public class MainActivity extends AppCompatActivity {
     {
         touchEvent(motionEvent);
         return true;
+    }
+
+    public void calculatePoints(){
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                while(true){
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            score.setText(String.valueOf(Points.getInstance().getTotalPoints()));
+                        }
+                    });
+
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        thread.start();
     }
 }

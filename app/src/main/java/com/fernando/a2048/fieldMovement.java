@@ -25,7 +25,6 @@ public class fieldMovement {
                                 valors[i] = 0;
                                 Points points = Points.getInstance();
                                 points.setTotalPoints(points.getTotalPoints() + valors[j]);
-                                Log.e("points", String.valueOf(points.getTotalPoints()));
                             }
                             break;
                         }
@@ -57,7 +56,6 @@ public class fieldMovement {
                                 valors[i] = 0;
                                 Points points = Points.getInstance();
                                 points.setTotalPoints(points.getTotalPoints() + valors[j]);
-                                Log.e("points", String.valueOf(points.getTotalPoints()));
                             }
                             break;
                         }
@@ -89,7 +87,6 @@ public class fieldMovement {
                                 valors[i] = 0;
                                 Points points = Points.getInstance();
                                 points.setTotalPoints(points.getTotalPoints() + valors[j]);
-                                Log.e("points", String.valueOf(points.getTotalPoints()));
                             }
                             break;
                         }
@@ -122,7 +119,6 @@ public class fieldMovement {
                                 valors[i] = 0;
                                 Points points = Points.getInstance();
                                 points.setTotalPoints(points.getTotalPoints() + valors[j]);
-                                Log.e("points", String.valueOf(points.getTotalPoints()));
                             }
                             break;
                         }
