@@ -97,6 +97,8 @@ public class TextViewAdapter extends BaseAdapter {
             case 1024:
                 return "#edc53f";
             case 2048:
+                new MainActivity().playWinSound();
+                Toast.makeText(context, "YOU WIN", Toast.LENGTH_LONG).show();
                 return "#FFEDC22E";
         }
         return null;

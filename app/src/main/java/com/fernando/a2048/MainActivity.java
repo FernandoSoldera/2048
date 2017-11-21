@@ -1,6 +1,7 @@
 package com.fernando.a2048;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,8 +15,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private GridView gridView;
     float initialX=0, initialY=0;
-    private int[] valors = {0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}; //FIELD
-    //private int[] valors = {2, 4, 8, 16, 16, 8, 4, 2, 2, 4, 8, 16, 16, 8, 4, 2}; //FIELD
+    //private int[] valors = {0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}; //FIELD
+    //private int[] valors = {2, 4, 8, 16, 16, 8, 4, 2, 2, 4, 8, 16, 16, 8, 4, 2}; //FIELD Loose
+    private int[] valors = {1024, 1024, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //FIELD Win
     int[] newValors = {};
     private TextView score;
 
@@ -138,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(gameOver==1){
+            playLooseSound();
             vibrate();
             Toast.makeText(this.getApplicationContext(), "GAME OVER", Toast.LENGTH_LONG).show();
         }else{
@@ -145,8 +148,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void vibrate(){
+    private void vibrate(){
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(300);
+    }
+
+    private void playLooseSound(){
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.losesound);
+        mediaPlayer.start();
+    }
+
+    public void playWinSound(){
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.winsound);
+        mediaPlayer.start();
     }
 }
