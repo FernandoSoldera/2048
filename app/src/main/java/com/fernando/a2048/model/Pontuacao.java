@@ -6,19 +6,21 @@ package com.fernando.a2048.model;
 
 public class Pontuacao {
 
-    private int pk_Funcionario;
+    private int pk_Pontuacao;
     private String pontuacao;
 
     public Pontuacao(String pontuacao){
         this.pontuacao = pontuacao;
     }
 
-    public int getPk_Funcionario() {
-        return pk_Funcionario;
+    public Pontuacao(){}
+
+    public int getPk_Pontuacao() {
+        return pk_Pontuacao;
     }
 
-    public void setPk_Funcionario(int pk_Funcionario) {
-        this.pk_Funcionario = pk_Funcionario;
+    public void setPk_Pontuacao(int pk_Pontuacao) {
+        this.pk_Pontuacao = pk_Pontuacao;
     }
 
     public String getPontuacao() {
