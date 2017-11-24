@@ -16,10 +16,12 @@ public class MainActivity extends AppCompatActivity {
     private GridView gridView;
     float initialX=0, initialY=0;
     //private int[] valors = {0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}; //FIELD
-    //private int[] valors = {2, 4, 8, 16, 16, 8, 4, 2, 2, 4, 8, 16, 16, 8, 4, 2}; //FIELD Loose
-    private int[] valors = {1024, 1024, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //FIELD Win
+    private int[] valors = {2, 4, 8, 16, 16, 8, 4, 2, 2, 4, 8, 16, 16, 8, 4, 2}; //FIELD Loose
+    //private int[] valors = {1024, 1024, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //FIELD Win
     int[] newValors = {};
     private TextView score;
+    MediaPlayer mediaPlayerLose;
+    static MediaPlayer mediaPlayerWin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         calculatePoints();
+
+        mediaPlayerLose = MediaPlayer.create(this, R.raw.losesound);
+        mediaPlayerWin = MediaPlayer.create(this, R.raw.winsound);
     }
 
     /**
@@ -144,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             vibrate();
             Toast.makeText(this.getApplicationContext(), "GAME OVER", Toast.LENGTH_LONG).show();
         }else{
-            Log.e("AAAAAAAA", "POSSUI JOGADAS");
+
         }
     }
 
@@ -154,12 +159,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void playLooseSound(){
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.losesound);
-        mediaPlayer.start();
+        mediaPlayerLose.start();
     }
 
-    public void playWinSound(){
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.winsound);
-        mediaPlayer.start();
+    public static void playWinSound(){
+        mediaPlayerWin.start();
     }
 }
