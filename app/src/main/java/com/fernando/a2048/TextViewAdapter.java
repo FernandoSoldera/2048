@@ -18,6 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fernando.a2048.dao.PontuacaoDAO;
+import com.fernando.a2048.model.Pontuacao;
+
 /**
  * Created by ferna on 07/09/2017.
  */
@@ -99,6 +102,7 @@ public class TextViewAdapter extends BaseAdapter {
             case 2048:
                 MainActivity.playWinSound();
                 Toast.makeText(context, "YOU WIN", Toast.LENGTH_LONG).show();
+                new PontuacaoDAO(context).insert(new Pontuacao(String.valueOf(Points.getInstance().getTotalPoints())));
                 return "#FFEDC22E";
         }
         return null;

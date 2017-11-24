@@ -12,12 +12,14 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fernando.a2048.dao.PontuacaoDAO;
+
 public class MainActivity extends AppCompatActivity {
     private GridView gridView;
     float initialX=0, initialY=0;
     //private int[] valors = {0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}; //FIELD
-    private int[] valors = {2, 4, 8, 16, 16, 8, 4, 2, 2, 4, 8, 16, 16, 8, 4, 2}; //FIELD Loose
-    //private int[] valors = {1024, 1024, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //FIELD Win
+    //private int[] valors = {2, 4, 8, 16, 16, 8, 4, 2, 2, 4, 8, 16, 16, 8, 4, 2}; //FIELD Loose
+    private int[] valors = {1024, 1024, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //FIELD Win
     int[] newValors = {};
     private TextView score;
     MediaPlayer mediaPlayerLose;
