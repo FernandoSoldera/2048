@@ -31,6 +31,7 @@ public class TextViewAdapter extends BaseAdapter {
     private int[] valors;
     private View gridView;
     TextView textView;
+    private boolean win = false;
 
     public TextViewAdapter(Context context, String[] textViewValues, View gridView, int[] valores) {
         this.context = context;
@@ -100,9 +101,11 @@ public class TextViewAdapter extends BaseAdapter {
             case 1024:
                 return "#edc53f";
             case 2048:
-                MainActivity.playWinSound();
-                Toast.makeText(context, "YOU WIN", Toast.LENGTH_LONG).show();
-                new PontuacaoDAO(context).insert(new Pontuacao(String.valueOf(Points.getInstance().getTotalPoints())));
+                if(!win){
+                    MainActivity.playWinSound();
+                    Toast.makeText(context, "YOU WIN", Toast.LENGTH_LONG).show();
+                    win = true;
+                }
                 return "#FFEDC22E";
         }
         return null;

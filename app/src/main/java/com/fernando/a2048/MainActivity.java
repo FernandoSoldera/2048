@@ -1,7 +1,11 @@
 package com.fernando.a2048;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridView;
@@ -16,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fernando.a2048.dao.PontuacaoDAO;
+import com.fernando.a2048.model.Pontuacao;
 
 import org.w3c.dom.Text;
 
@@ -23,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private GridView gridView;
     float initialX=0, initialY=0;
     //private int[] valors = {0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}; //FIELD
-    //private int[] valors = {2, 4, 8, 16, 16, 8, 4, 2, 2, 4, 8, 16, 16, 8, 4, 2}; //FIELD Loose
-    private int[] valors = {1024, 1024, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //FIELD Win
-    int[] newValors = {};
+    private int[] valors = {2, 4, 8, 16, 16, 8, 4, 2, 2, 4, 8, 16, 16, 8, 4, 2}; //FIELD Loose
+    //private int[] valors = {1024, 1024, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //FIELD Win
+    public int[] newValors = {};
     private TextView score;
     private TextView bestScore;
     MediaPlayer mediaPlayerLose;
@@ -155,9 +161,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(gameOver==1){
+            new PontuacaoDAO(MainActivity.this).insert(new Pontuacao(String.valueOf(Points.getInstance().getTotalPoints())));
             playLooseSound();
             vibrate();
-            Toast.makeText(this.getApplicationContext(), "GAME OVER", Toast.LENGTH_LONG).show();
+
+            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+            alertDialog.setTitle("You Loose! Restart the Game?");
+
+            alertDialog.setButton("Restart", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    int[] resetValor = {0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0};
+                    newValors = resetValor;
+                    valors = resetValor;
+                    Points points = Points.getInstance();
+                    points.setTotalPoints(0);
+                    gridView.setAdapter(new TextViewAdapter(MainActivity.this, new String[16], gridView, resetValor));
+                }
+            });
+            alertDialog.show();
         }else{
 
         }
@@ -174,6 +195,21 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.layout.menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.new_game:
+
+                return true;
+            case R.id.scores:
+                Intent intent = new Intent(MainActivity.this, ScoreActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void playLooseSound(){

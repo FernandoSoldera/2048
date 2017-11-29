@@ -36,10 +36,10 @@ public class PontuacaoDAO {
         return number;
     }
 
-    public ArrayList<Pontuacao> getAll() {
+    public ArrayList<Pontuacao> getTop5() {
         ArrayList<Pontuacao> pointsList = new ArrayList<Pontuacao>();
 
-        String query = "SELECT * FROM tb_pontuacao";
+        String query = "SELECT * FROM tb_pontuacao ORDER BY pontuacao DESC LIMIT 5";
         this.db = sqlLite.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
