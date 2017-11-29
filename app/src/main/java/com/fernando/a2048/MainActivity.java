@@ -1,11 +1,14 @@
 package com.fernando.a2048;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridView;
@@ -13,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fernando.a2048.dao.PontuacaoDAO;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     private GridView gridView;
@@ -22,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private int[] valors = {1024, 1024, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //FIELD Win
     int[] newValors = {};
     private TextView score;
+    private TextView bestScore;
     MediaPlayer mediaPlayerLose;
     static MediaPlayer mediaPlayerWin;
 
@@ -32,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         gridView = (GridView) findViewById(R.id.gridView);
         score = (TextView) findViewById(R.id.tvScore);
-
+        bestScore = (TextView) findViewById(R.id.tvBestScore);
         gridView.setAdapter(new TextViewAdapter(this, new String[16], gridView, valors));
 
         gridView.setOnTouchListener(new View.OnTouchListener() {
@@ -45,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         mediaPlayerLose = MediaPlayer.create(this, R.raw.losesound);
         mediaPlayerWin = MediaPlayer.create(this, R.raw.winsound);
+
+        bestScore.setText(new PontuacaoDAO(MainActivity.this).getBestScore());
     }
 
     /**
@@ -158,6 +166,14 @@ public class MainActivity extends AppCompatActivity {
     private void vibrate(){
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(300);
+    }
+
+    @SuppressLint("ResourceType")
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.layout.menu, menu);
+        return true;
     }
 
     private void playLooseSound(){

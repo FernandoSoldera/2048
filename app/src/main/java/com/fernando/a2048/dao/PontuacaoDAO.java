@@ -55,4 +55,17 @@ public class PontuacaoDAO {
         db.close();
         return pointsList;
     }
+
+    public String getBestScore(){
+        String query = "SELECT MAX(pontuacao) FROM tb_pontuacao";
+
+        this.db = sqlLite.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            return cursor.getString(0);
+        }
+
+        return "";
+    }
 }
