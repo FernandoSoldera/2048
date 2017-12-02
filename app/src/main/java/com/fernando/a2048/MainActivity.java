@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     float initialX=0, initialY=0;
     //private int[] valors = {0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0}; //FIELD
     private int[] valors = {2, 4, 8, 16, 16, 8, 4, 2, 2, 4, 8, 16, 16, 8, 4, 2}; //FIELD Loose
+    //private int[] valors = {256, 256, 8, 16, 16, 8, 4, 2, 2, 4, 8, 16, 16, 8, 4, 2}; //BEST Loose
     //private int[] valors = {1024, 1024, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //FIELD Win
     public int[] newValors = {};
     private TextView score;
@@ -175,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
                     valors = resetValor;
                     Points points = Points.getInstance();
                     points.setTotalPoints(0);
+                    bestScore.setText(new PontuacaoDAO(MainActivity.this).getBestScore());
                     gridView.setAdapter(new TextViewAdapter(MainActivity.this, new String[16], gridView, resetValor));
                 }
             });
@@ -200,12 +202,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.new_game:
-
+            case R.id.rating:
+                int[] resetValor = {0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0};
+                newValors = resetValor;
+                valors = resetValor;
+                Points points = Points.getInstance();
+                points.setTotalPoints(0);
+                bestScore.setText(new PontuacaoDAO(MainActivity.this).getBestScore());
+                gridView.setAdapter(new TextViewAdapter(MainActivity.this, new String[16], gridView, resetValor));
                 return true;
             case R.id.scores:
-                Intent intent = new Intent(MainActivity.this, ScoreActivity.class);
-                startActivity(intent);
+                Intent intentScore = new Intent(MainActivity.this, ScoreActivity.class);
+                startActivity(intentScore);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
